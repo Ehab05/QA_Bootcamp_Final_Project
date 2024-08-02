@@ -50,7 +50,7 @@ class BasePage:
             EC.visibility_of_element_located(self._cart_button_locator))
         cart_button.click()
 
-    def click_(self):
+    def click_login_button(self):
         login_button = WebDriverWait(self._driver, 10).until(
             EC.visibility_of_element_located(self._login_button_locator))
         login_button.click()

@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from infra.UI.base_page import BasePage
 
 
-class LoginPage(BasePage):
+class SignupPage(BasePage):
     USER_NAME_FIELD = "//input[@id='loginusername']"
     PASSWORD_FIELD = "//input[@id='loginpassword']"
     CLOSE_BUTTON = "//div[@id='logInModal']//button[@class='btn btn-secondary']"

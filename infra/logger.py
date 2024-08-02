@@ -12,7 +12,7 @@ class Logger:
         self._logger.setLevel(logging.INFO)
 
         formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-        handler = logging.FileHandler('ParaBank.log')
+        handler = logging.FileHandler('demo_blaze.log')
         handler.setFormatter(formatter)
         self._logger.addHandler(handler)
 
