@@ -16,11 +16,15 @@ class Login:
         self._config = JsonFileHandler().load_from_file(config_file_path)
         self._logger = Logger('demo_blaze.log').get_logger()
 
-    def login(self):
+    def login(self, driver):
         try:
             login_body = {"username": "g1g1g1", "password": "MTIzNDU2"}
             response = self._request.post_request(self._url, login_body)
-            return response
+            auth_token = self.extract_auth_token(response.text)
+            self._request.set_auth_token(auth_token)
+            driver.add_cookie({'name': 'tokenp_', 'value': auth_token, 'path': '/'})
+            driver.refresh()
+            return driver
         except Exception as e:
             self._logger.error(f"Error logging in: {e}")
             return None

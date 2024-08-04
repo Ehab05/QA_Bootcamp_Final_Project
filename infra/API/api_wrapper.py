@@ -7,7 +7,7 @@ from infra.logger import Logger
 class APIWrapper:
 
     def __init__(self):
-        self._logger = Logger("fake_rest_API_log").get_logger()
+        self._logger = Logger("demo_blaze_log").get_logger()
         self.auth_token = None
         self._session = requests.Session()
 

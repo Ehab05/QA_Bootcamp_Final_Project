@@ -67,13 +67,13 @@ class AboutUsPage(BasePage):
         return button_state
 
     def hover_over_volume_icon(self):
-        volume_icon = (WebDriverWait(self._driver, 5).until
+        volume_icon = (WebDriverWait(self._driver, 10).until
                        (EC.visibility_of_element_located(self._video_player_volume_mute_locator)))
         action = ActionChains(self._driver)
         action.move_to_element(volume_icon).perform()
 
     def raise_the_volume(self, desired_volume_percentage):
-        volume_bar = (WebDriverWait(self._driver, 5).until
+        volume_bar = (WebDriverWait(self._driver, 10).until
                       (EC.visibility_of_element_located(self._video_player_volume_bar)))
         action = ActionChains(self._driver)
         volume_bar_width = volume_bar.size['width']
@@ -81,7 +81,7 @@ class AboutUsPage(BasePage):
         action.click_and_hold(volume_bar).move_by_offset(offset_x, 0).release().perform()
 
     def lower_the_volume(self, desired_volume_percentage):
-        volume_bar = (WebDriverWait(self._driver, 5).until
+        volume_bar = (WebDriverWait(self._driver, 10).until
                       (EC.visibility_of_element_located(self._video_player_volume_bar)))
         action = ActionChains(self._driver)
         # Calculate the width of the volume bar
@@ -90,6 +90,6 @@ class AboutUsPage(BasePage):
         action.click_and_hold(volume_bar).move_by_offset(-volume_bar_width + offset_x, 0).release().perform()
 
     def click_full_screen_button(self):
-        full_screen_button = (WebDriverWait(self._driver, 5).until
+        full_screen_button = (WebDriverWait(self._driver, 10).until
                               (EC.visibility_of_element_located(self._full_screen_button_locator)))
         full_screen_button.click()

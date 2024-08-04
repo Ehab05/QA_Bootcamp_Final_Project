@@ -13,6 +13,7 @@ class HomePage(AppBasePage):
     CAROUSEL_NEXT_BUTTON = "//a[@class='carousel-control-next']"
     CAROUSEL_PREV_BUTTON = "//a[@class='carousel-control-prev']"
     STORE_PRODUCT = "//a[contains(text() ,f"'{product_name}'")]"
+    PRODUCT_LIST = "//div[@id='tbodyid']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -24,6 +25,8 @@ class HomePage(AppBasePage):
         self._next_button_locator = (By.XPATH, self.NEXT_BUTTON)
         self._carousel_next_button_locator = (By.XPATH, self.CAROUSEL_NEXT_BUTTON)
         self._carousel_prev_button_locator = (By.XPATH, self.CAROUSEL_PREV_BUTTON)
+        self._products_list_locator = (By.XPATH, self.PRODUCT_LIST)
+        self._products_list_data = []
 
     def click_phones_button(self):
         phones_button = (WebDriverWait(self._driver, 10).until
@@ -65,3 +68,25 @@ class HomePage(AppBasePage):
         product = (WebDriverWait(self._driver, 5).until
                    (EC.visibility_of_element_located((By.XPATH, product_path))))
         product.click()
+
+    def get_product_list(self):
+        products_list = (WebDriverWait(self._driver, 10).until
+                         (EC.visibility_of_all_elements_located(self._products_list_locator)))
+        for product in products_list:
+            image_src = product.find_element(By.TAG_NAME, "img").get_attribute("src")
+            title_link = product.find_element(By.CLASS_NAME, "hrefch")
+            title = title_link.text
+            price = product.find_element(By.TAG_NAME, "h5").text
+            description = product.find_element(By.TAG_NAME, "p").text
+            self._products_list_data.append({
+                'image': image_src,
+                'title': title,
+                'title_link': title_link,
+                'price': price,
+                'description': description
+            })
+
+    def click_on_product_by_title(self, product_title):
+        self.get_product_list()
+
+

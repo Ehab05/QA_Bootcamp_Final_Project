@@ -14,4 +14,4 @@ class UtilitiesLogic:
         """
             Constructs a complete URL by appending the given endpoint to the base URL from the configuration.
         """
-        return f"{self._config["base_url"]}{endpoint}"
+        return f"{self._config["api_base_url"]}{endpoint}"

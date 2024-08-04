@@ -1,5 +1,7 @@
 {
     "browser": "Chrome",
     "url": "https://www.demoblaze.com/",
-    "api_base_url": "https://api.demoblaze.com/"
+    "api_base_url": "https://api.demoblaze.com/",
+    "username": "ZtHIgIkB",
+    "password": "tbyhFC0T"
 }

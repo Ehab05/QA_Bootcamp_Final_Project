@@ -23,6 +23,7 @@ class AppBasePage:
         self._about_us_button_locator = (By.XPATH, self.ABOUT_US_BUTTON)
         self._cart_button_locator = (By.XPATH, self.CART_BUTTON)
         self._login_button_locator = (By.XPATH, self.LOGIN_BUTTON)
+        self._sign_up_button_locator = (By.XPATH, self.SIGN_UP_BUTTON)
         self._logout_button_locator = (By.XPATH, self.LOGOUT_BUTTON)
         self._name_of_user_locator = (By.XPATH, self.NAME_OF_USER)
 
@@ -54,6 +55,11 @@ class AppBasePage:
         login_button = WebDriverWait(self._driver, 10).until(
             EC.visibility_of_element_located(self._login_button_locator))
         login_button.click()
+
+    def click_sign_up_button(self):
+        sign_up_button = WebDriverWait(self._driver, 10).until(
+            EC.visibility_of_element_located(self._sign_up_button_locator))
+        sign_up_button.click()
 
     def click_logout_button(self):
         logout_button = WebDriverWait(self._driver, 10).until(

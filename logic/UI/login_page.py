@@ -13,6 +13,7 @@ class LoginPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
+        self._driver = driver
         self._user_name_input_locator = (By.XPATH, self.USER_NAME_INPUT)
         self._password_input_locator = (By.XPATH, self.PASSWORD_INPUT)
         self._close_button_locator = (By.XPATH, self.CLOSE_BUTTON)
