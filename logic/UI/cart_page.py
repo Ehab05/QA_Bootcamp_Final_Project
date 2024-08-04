@@ -1,10 +1,10 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from infra.UI.base_page import BasePage
+from logic.UI.app_base_page import AppBasePage
 
 
-class CartPage(BasePage):
+class CartPage(AppBasePage):
     TOTAL_AMOUNT = "//div[@class='panel-heading']"
     PLACE_ORDER_BUTTON = "//div[@class='col-lg-1']/button"
     PRODUCTS_LIST = "//tbody[@id='tbodyid']"
@@ -32,9 +32,3 @@ class CartPage(BasePage):
 
 
 
-# from infra.utilities import Utilities
-#
-# password = "123456"
-# encoded_password = Utilities().encode_password(password)
-# print(f"Base64 Encoded Password: {encoded_password}")
-# print(Utilities().generate_random_credit_card("visa"))

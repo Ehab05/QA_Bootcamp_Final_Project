@@ -1,7 +1,7 @@
+import json
 import os
-import re
-
 from infra.API.api_wrapper import APIWrapper
+from infra.custom_exception import CustomException
 from infra.json_file_handler import JsonFileHandler
 from infra.logger import Logger
 from logic.utilities_logic import UtilitiesLogic
@@ -14,7 +14,7 @@ class Login:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         config_file_path = os.path.join(base_dir, '../demo_blaze_config.json')
         self._config = JsonFileHandler().load_from_file(config_file_path)
-        self._logger = Logger("fake_rest_api.log").get_logger()
+        self._logger = Logger('demo_blaze.log').get_logger()
 
     def login(self):
         try:
@@ -25,27 +25,35 @@ class Login:
             self._logger.error(f"Error logging in: {e}")
             return None
 
+    def convert_to_dict(self, text):
+        try:
+            text = text.strip()
+            # Split the input string at the colon
+            key, value = text.split(':', 1)
+            # Strip leading/trailing whitespace from key and value
+            key = key.strip().strip('"')
+            value = value.strip().strip('"')
+            # Create a dictionary
+            result_dict = {key: value}
+
+            return result_dict
+        except:
+            raise CustomException(f"Invalid text format")
+
     def extract_auth_token(self, response_text):
         # Split the response text using 'Auth_token:' and clean up
-        parts = response_text.split('Auth_token:')
-
-        if len(parts) > 1:
-            # Extract the part after 'Auth_token:', and remove leading/trailing whitespace
-            token = parts[1].strip().strip('"')
-            return token
-
-        return None
+        response_dict = self.convert_to_dict(response_text)
+        token = response_dict["Auth_token"]
+        return token
 
     def check_token(self, token):
-        """Check if the token is valid."""
-        url = "https://api.demoblaze.com/check"
-        headers = {
-            "Authorization": f"Bearer {token}",
-        #     "Content-Type": "application/json",
-        #     "Accept": "*/*",
-        #     "Origin": "https://www.demoblaze.com",
-        #     "Referer": "https://www.demoblaze.com/",
-        #     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
-         }
-        response = self._request.post_request(url, body={"token": "ZzFnMWcxMTcyMzIyOA=="}, headers=headers)
-        return response.data
+        try:
+            """Check if the token is valid."""
+            url = "https://api.demoblaze.com/check"
+            headers = {
+                "Authorization": f"Bearer {token}"
+            }
+            response = self._request.post_request(url, body={"token": "ZzFnMWcxMTcyMzIyOA=="}, headers=headers)
+            return response.data
+        except:
+            raise CustomException(f"Auth_token not found in the response text")

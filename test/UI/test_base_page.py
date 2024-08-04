@@ -1,13 +1,9 @@
-import json
 import time
 import unittest
-
-import requests
-from selenium.webdriver.common.alert import Alert
-
 from infra.API.api_wrapper import APIWrapper
 from infra.UI.browser_wrapper import BrowserWrapper
 from logic.API.login import Login
+from logic.UI.about_us_page import AboutUsPage
 from logic.UI.home_page import HomePage
 from logic.UI.login_page import LoginPage
 
@@ -46,3 +42,22 @@ class TestBasePage(unittest.TestCase):
         self.assertIsNotNone(response.text)
         self.assertEqual(response.status_code, 200)
         self.assertEqual("Welcome g1g1g1", home_page.get_name_of_user())
+
+    def test_carousel(self):
+        home_page = HomePage(self._driver)
+        home_page.click_about_us_button()
+        about_us_page = AboutUsPage(self._driver)
+        about_us_page.click_play_video_button()
+        about_us_page.click__video_play_control_button()
+        about_us_page.hover_over_volume_icon()
+        about_us_page.raise_the_volume(20)
+        about_us_page.lower_the_volume(15)
+        about_us_page.click_full_screen_button()
+        about_us_page.click_full_screen_button()
+
+    def test_home_page(self):
+        home_page = HomePage(self._driver)
+        home_page.click_on_product_by_name("Samsung galaxy s6")
+
+
+

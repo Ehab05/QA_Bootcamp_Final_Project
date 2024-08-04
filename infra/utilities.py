@@ -8,7 +8,7 @@ class Utilities:
     def __init__(self):
         pass
 
-    def generate_random_credit_card(self, card_type):
+    def generate_random_credit_card(self, card_type) -> dict:
         # initialize card
         credit_card = {"card_number": "", "card_expiry": "", "card_provider": "", "card_security_code": ""}
 
@@ -23,13 +23,18 @@ class Utilities:
 
         return credit_card
 
-    def generate_random_email(self):
+    def generate_random_email(self, email_host) -> str:
+        """
+        Generates a random fake email with given email host
+        :param email_host: Enter the email host in this structure: @email_host.com
+        :return: fakename@email_host.com
+        """
         fake = Faker()
         # Generate a random email address
         fake_email = fake.email()
-        # Replace domain with Gmail
-        gmail_email = fake_email.split('@')[0] + '@gmail.com'
-        return gmail_email
+        # Replace domain with host email
+        email = fake_email.split('@')[0] + f"{email_host}"
+        return email
 
     def generate_random_passwrod(self, password_length) -> str:
         """

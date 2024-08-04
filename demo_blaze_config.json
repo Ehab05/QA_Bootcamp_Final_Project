@@ -1,5 +1,5 @@
 {
     "browser": "Chrome",
     "url": "https://www.demoblaze.com/",
-    "base_url": "https://api.demoblaze.com/"
+    "api_base_url": "https://api.demoblaze.com/"
 }
