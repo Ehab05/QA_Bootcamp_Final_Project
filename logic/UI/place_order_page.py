@@ -1,1 +1,2 @@
 
+class PlaceOrderPage(BasePage):
