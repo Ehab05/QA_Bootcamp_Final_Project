@@ -2,6 +2,10 @@
     "browser": "Chrome",
     "url": "https://www.demoblaze.com/",
     "api_base_url": "https://api.demoblaze.com/",
-    "username": "ZtHIgIkB",
-    "password": "tbyhFC0T"
+    "username": "sDtLLfIo",
+    "password": "mO9shLOK",
+    "signup_success_message": "Sign up successful.",
+    "missing_fields_message": "Please fill out Username and Password.",
+    "login_password_error_message": "Wrong password.",
+    "login_user_error_message": "User does not exist."
 }

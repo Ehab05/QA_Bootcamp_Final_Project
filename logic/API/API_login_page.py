@@ -4,27 +4,25 @@ from infra.API.api_wrapper import APIWrapper
 from infra.custom_exception import CustomException
 from infra.json_file_handler import JsonFileHandler
 from infra.logger import Logger
+from infra.utilities import Utilities
 from logic.utilities_logic import UtilitiesLogic
 
 
-class Login:
+class APILoginPage:
     def __init__(self, request: APIWrapper):
         self._request = request
         self._url = UtilitiesLogic().get_url_with_endpoint("login")
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        config_file_path = os.path.join(base_dir, '../demo_blaze_config.json')
+        config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
         self._config = JsonFileHandler().load_from_file(config_file_path)
         self._logger = Logger('demo_blaze.log').get_logger()
 
-    def login(self, driver):
+    def login_via_api(self, username, password):
         try:
-            login_body = {"username": "g1g1g1", "password": "MTIzNDU2"}
+
+            login_body = {"username": username, "password": password}
             response = self._request.post_request(self._url, login_body)
-            auth_token = self.extract_auth_token(response.text)
-            self._request.set_auth_token(auth_token)
-            driver.add_cookie({'name': 'tokenp_', 'value': auth_token, 'path': '/'})
-            driver.refresh()
-            return driver
+            return response
         except Exception as e:
             self._logger.error(f"Error logging in: {e}")
             return None
@@ -50,14 +48,21 @@ class Login:
         token = response_dict["Auth_token"]
         return token
 
-    def check_token(self, token):
-        try:
-            """Check if the token is valid."""
-            url = "https://api.demoblaze.com/check"
-            headers = {
-                "Authorization": f"Bearer {token}"
-            }
-            response = self._request.post_request(url, body={"token": "ZzFnMWcxMTcyMzIyOA=="}, headers=headers)
-            return response.data
-        except:
-            raise CustomException(f"Auth_token not found in the response text")
+    def get_token_from_response(self, response):
+        auth_token = self.extract_auth_token(response.text)
+        self._request.set_auth_token(auth_token)
+        return {'name': 'tokenp_', 'value': auth_token, 'path': '/'}
+
+    def check_auth_token(self, auth_token):
+        auth_token = self.convert_to_dict(auth_token)
+        return auth_token
+
+    def get_username_and_password(self):
+        username = self._config.get("username")
+        password = Utilities().encode_password_by_base64(self._config.get("password"))
+        return username, password
+
+    def get_response_json(self, response):
+        # Convert the JSON string to a Python dictionary
+        return json.loads(response.text)
+

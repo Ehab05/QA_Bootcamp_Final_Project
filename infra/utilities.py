@@ -45,7 +45,7 @@ class Utilities:
         email = fake_email.split('@')[0] + f"{email_host}"
         return email
 
-    def generate_random_passwrod(self, password_length) -> str:
+    def generate_random_password(self, password_length) -> str:
         """
             Generating a random password that contains digits and letters with the given length
             :param password_length:
@@ -61,6 +61,12 @@ class Utilities:
         encoded_str = encoded_bytes.decode('utf-8')
         return encoded_str
 
+    def scramble_password(self, password):
+        """
+            This function get a password and rearrange the letters in a random way
+            :param password:
+            :return: Scrambled password
+        """
+        return "".join(random.sample(password, len(password)))
 
-
-
+print(Utilities().encode_password_by_base64("mO9shLOK"))

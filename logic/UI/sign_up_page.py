@@ -3,12 +3,12 @@ import os
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from infra.UI.base_page import BasePage
+
 from infra.json_file_handler import JsonFileHandler
+from logic.UI.app_base_page import AppBasePage
 
 
-
-class SignUpPage(BasePage):
+class SignUpPage(AppBasePage):
     USER_NAME_INPUT = "//input[@id='sign-username']"
     PASSWORD_INPUT = "//input[@id='sign-password']"
     CLOSE_BUTTON = "//div[@id='logInModal']//button[@class='btn btn-secondary']"
@@ -34,12 +34,22 @@ class SignUpPage(BasePage):
         self._config["username"] = username
         JsonFileHandler().save_to_file(self._config_file_path, self._config)
 
+    def clear_username_input_field(self):
+        user_name_input = WebDriverWait(self._driver, 10).until(
+            EC.visibility_of_element_located(self._user_name_input_locator))
+        user_name_input.clear()
+
     def insert_password(self, password):
         password_input = WebDriverWait(self._driver, 10).until(
             EC.visibility_of_element_located(self._password_input_locator))
         password_input.send_keys(password)
         self._config["password"] = password
         JsonFileHandler().save_to_file(self._config_file_path, self._config)
+
+    def clear_password_input_field(self):
+        password_input = WebDriverWait(self._driver, 10).until(
+            EC.visibility_of_element_located(self._password_input_locator))
+        password_input.clear()
 
     def click_close_button(self):
         close_button = WebDriverWait(self._driver, 10).until(
@@ -55,3 +65,9 @@ class SignUpPage(BasePage):
         sign_up_button = WebDriverWait(self._driver, 10).until(
             EC.visibility_of_element_located(self._sign_up_button_locator))
         sign_up_button.click()
+
+    def get_success_signup_message(self):
+        return self._config["signup_success_message"]
+
+    def get_signup_missing_fields_message(self):
+        return self._config["missing_fields_message"]

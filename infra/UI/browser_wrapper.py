@@ -7,18 +7,18 @@ class BrowserWrapper:
 
     def __init__(self):
         self._driver = None
-        self.config = JsonFileHandler.load_from_file('../../demo_blaze_config.json')
+        self._config = JsonFileHandler.load_from_file('../../demo_blaze_config.json')
 
     def get_driver(self):
-        url = self.config.get("url")
+        url = self._config.get("url")
         if not url:
             raise ValueError("URL not found in the configuration.")
         try:
-            if self.config["browser"] == "Chrome":
+            if self._config["browser"] == "Chrome":
                 self._driver = webdriver.Chrome()
-            elif self.config["browser"] == "FireFox":
+            elif self._config["browser"] == "FireFox":
                 self._driver = webdriver.Firefox()
-            elif self.config["browser"] == "Edge":
+            elif self._config["browser"] == "Edge":
                 self._driver = webdriver.Edge()
         except Exception as e:
             raise CustomException(f"Browser loading error check browser if supported: {e}")
