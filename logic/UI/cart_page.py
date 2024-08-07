@@ -22,7 +22,7 @@ class CartPage(AppBasePage):
                         (EC.visibility_of_element_located(self._total_amount_locator)))
         return total_amount.text
 
-    def place_order_button(self):
+    def click_place_order_button(self):
         place_order_button = (WebDriverWait(self._driver, 10).until
                               (EC.visibility_of_element_located(self._place_order_button_locator)))
         place_order_button.click()

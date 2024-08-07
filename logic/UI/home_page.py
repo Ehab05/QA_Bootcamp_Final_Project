@@ -72,7 +72,7 @@ class HomePage(AppBasePage):
 
     def click_on_product_by_name(self, product_name):
         product_path = f"//a[contains(text() ,'{product_name}')]"
-        product = (WebDriverWait(self._driver, 5).until
+        product = (WebDriverWait(self._driver, 10).until
                    (EC.visibility_of_element_located((By.XPATH, product_path))))
         product.click()
 

@@ -17,5 +17,7 @@
     "unregistered_user_cart_list": [],
     "registered_user_cart_list": [],
     "add_to_cart_success_message": "Product added",
-    "add_product_by_name": "Samsung galaxy s6"
+    "add_product_by_name": "Samsung galaxy s6",
+    "purchase_product": "Sony vaio i7",
+    "credit_card_type": "visa"
 }

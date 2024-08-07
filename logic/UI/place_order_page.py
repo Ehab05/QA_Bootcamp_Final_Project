@@ -2,10 +2,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from infra.UI.base_page import BasePage
+
+from logic.UI.app_base_page import AppBasePage
 
 
-class PlaceOrderPage(BasePage):
+class PlaceOrderPage(AppBasePage):
     PAGE_TITLE = "//h5[@id='orderModalLabel']"
     TOTAL_AMOUNT = "//label[@id='totalm']"
     NAME_INPUT = "//input[@id='name']"
@@ -61,7 +62,7 @@ class PlaceOrderPage(BasePage):
         city_input.clear()
         city_input.send_keys(city)
 
-    def insert_card_input(self, card):
+    def insert_card_number_input(self, card):
         card_input = (WebDriverWait(self._driver, 5).until
                       (EC.visibility_of_element_located(self._card_input_locator)))
         card_input.clear()
