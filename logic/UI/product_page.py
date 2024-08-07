@@ -6,7 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 
 class ProductPage(AppBasePage):
-    ADD_TO_CART = "//a[@onclick='addToCart(9)']"
+    ADD_TO_CART = "//a[contains(@onclick, 'addToCart')]"
     PRODUCT_NAME = "//h2[@class='name']"
     PRODUCT_PRICE = "//h3[@class='price-container']"
     PRODUCT_DESCRIPTION_TITLE = "//div[@id='more-information']/strong"
@@ -21,3 +21,8 @@ class ProductPage(AppBasePage):
         self._product_description_title_locator = (By.XPATH, self.PRODUCT_DESCRIPTION_TITLE)
         self._product_description_locator = (By.XPATH, self.PRODUCT_DESCRIPTION)
         self._product_image_locator = (By.XPATH, self.PRODUCT_IMAGE)
+
+    def click_add_to_cart_button(self):
+        add_to_cart_button = (WebDriverWait(self._driver, 10).until
+                              (EC.visibility_of_element_located(self._add_to_cart_locator)))
+        add_to_cart_button.click()

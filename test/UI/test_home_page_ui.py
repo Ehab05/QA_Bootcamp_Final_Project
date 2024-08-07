@@ -17,7 +17,7 @@ class TestHomePageUI(unittest.TestCase):
 
     def test_home_page_logout(self):
         """
-             Test Case 015: Verify successful logout
+             Test Case 014: Verify successful logout
         """
         # Initialize home page
         home_page = HomePage(self._driver)

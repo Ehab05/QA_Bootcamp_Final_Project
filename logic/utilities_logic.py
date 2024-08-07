@@ -1,3 +1,4 @@
+import json
 import os
 
 from infra.json_file_handler import JsonFileHandler
@@ -15,3 +16,7 @@ class UtilitiesLogic:
             Constructs a complete URL by appending the given endpoint to the base URL from the configuration.
         """
         return f"{self._config["api_base_url"]}{endpoint}"
+
+    def get_response_json(self, response):
+        # Convert the JSON string to a Python dictionary
+        return json.loads(response.text)

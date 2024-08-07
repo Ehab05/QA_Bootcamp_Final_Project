@@ -62,7 +62,5 @@ class APILoginPage:
         password = Utilities().encode_password_by_base64(self._config.get("password"))
         return username, password
 
-    def get_response_json(self, response):
-        # Convert the JSON string to a Python dictionary
-        return json.loads(response.text)
+
 

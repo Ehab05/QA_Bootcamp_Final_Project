@@ -1,5 +1,5 @@
 import requests
-
+from http.cookiejar import Cookie
 from infra.API.response_wrapper import ResponseWrapper
 from infra.logger import Logger
 
@@ -15,7 +15,8 @@ class APIWrapper:
         try:
 
             response = self._session.get(url)
-            return ResponseWrapper(ok=response.ok, status_code=response.status_code, data=response.json(), text=response.text, cookies=response.cookies)
+            return ResponseWrapper(ok=response.ok, status_code=response.status_code, data=response.json(),
+                                   text=response.text, cookies=response.cookies)
         except requests.exceptions.HTTPError as e:
             self._logger.error(f"Error HTTP:{e}")
         except Exception as e:
@@ -24,7 +25,8 @@ class APIWrapper:
     def post_request(self, url, body=None, headers=None):
         try:
             response = self._session.post(url, json=body, headers=headers)
-            return ResponseWrapper(ok=response.ok, status_code=response.status_code, data=response.json(), text=response.text, cookies=response.cookies)
+            return ResponseWrapper(ok=response.ok, status_code=response.status_code, data=response.json(),
+                                   text=response.text, cookies=response.cookies)
         except requests.exceptions.HTTPError as e:
             self._logger.error(f"Error HTTP:{e}")
         except Exception as e:
@@ -33,7 +35,8 @@ class APIWrapper:
     def put_request(self, url, body=None, headers=None):
         try:
             response = self._session.put(url, json=body, headers=headers)
-            return ResponseWrapper(ok=response.ok, status_code=response.status_code, data=response.json(), text=response.text, cookies=response.cookies)
+            return ResponseWrapper(ok=response.ok, status_code=response.status_code, data=response.json(),
+                                   text=response.text, cookies=response.cookies)
         except requests.exceptions.HTTPError as e:
             self._logger.error(f"Error HTTP:{e}")
         except Exception as e:
@@ -56,7 +59,8 @@ class APIWrapper:
                 # Response body is empty, which is expected
                 data = None
 
-            return ResponseWrapper(ok=response.ok, status_code=response.status_code, data=data, text=response.text, cookies=response.cookies)
+            return ResponseWrapper(ok=response.ok, status_code=response.status_code, data=data, text=response.text,
+                                   cookies=response.cookies)
         except requests.exceptions.HTTPError as e:
             self._logger.error(f"HTTP error: {e}")
             return None
@@ -67,3 +71,8 @@ class APIWrapper:
     def set_auth_token(self, token):
         """Sets the authentication token for API requests."""
         self._session.headers.update({"Authorization": f"Bearer {token}"})
+
+    def get_cookies(self):
+        """Retrieve cookies from the session."""
+        return self._session.cookies.get_dict()
+

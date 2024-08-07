@@ -1,9 +1,13 @@
+import time
 import unittest
 
 from infra.API.api_wrapper import APIWrapper
 from infra.UI.browser_wrapper import BrowserWrapper
-from logic.API.API_login_page import APILogin
+from logic.API.API_login_page import APILoginPage
 from logic.UI.home_page import HomePage
+
+
+
 
 
 class TestLoginPage(unittest.TestCase):
@@ -20,7 +24,7 @@ class TestLoginPage(unittest.TestCase):
             and verify the welcome message on the web UI.
         """
         # Initialize login api page
-        login_api = APILogin(self._request)
+        login_api = APILoginPage(self._request)
         username, password = login_api.get_username_and_password()
 
         # Send post request to the api

@@ -1,10 +1,11 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from infra.UI.base_page import BasePage
+
+from logic.UI.app_base_page import AppBasePage
 
 
-class ContactPage(BasePage):
+class ContactPage(AppBasePage):
     CONTACT_EMAIL_INPUT = "//input[@id='recipient-email']"
     CONTACT_NAME_INPUT = "//input[@id='recipient-name']"
     CONTACT_MESSAGE_INPUT = "//textarea[@id='message-text']"

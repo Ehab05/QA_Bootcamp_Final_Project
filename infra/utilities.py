@@ -69,4 +69,16 @@ class Utilities:
         """
         return "".join(random.sample(password, len(password)))
 
-print(Utilities().encode_password_by_base64("mO9shLOK"))
+    def generate_paragraph(self, num_sentences=None):
+        fake = Faker()
+        if num_sentences is None:
+            num_sentences = random.randint(1, 20)
+
+            # Generate the specified number of sentences
+        sentences = [fake.sentence() for _ in range(num_sentences)]
+
+        # Join sentences to form a paragraph
+        paragraph = ' '.join(sentences)
+
+        return paragraph
+

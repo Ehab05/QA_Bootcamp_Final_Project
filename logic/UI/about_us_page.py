@@ -13,7 +13,7 @@ class AboutUsPage(BasePage):
     MAIN_PLAY_VIDEO_BUTTON = "//button[contains(@title, 'Play Video')]"
     VIDEO_PLAY_CONTROL_BUTTON = "//button[@title='Play'] | //button[@title='Pause']"
     VIDEO_PLAYER_VOLUME_MUTE = "//button[@title='Mute'] | //button[@title='Unmute']"
-    VIDEO_PLAYER_VOLUME_BAR = "//div[@class='vjs-volume-control vjs-control vjs-volume-horizontal']"
+    VIDEO_PLAYER_VOLUME_BAR = "//div[@class='vjs-volume-control vjs-control vjs-volume-horizontal']/div[@role='slider']"
     FULL_SCREEN_BUTTON = "//button[@title='Fullscreen'] | //button[@title='Non-Fullscreen']"
 
     def __init__(self, driver):
@@ -76,20 +76,35 @@ class AboutUsPage(BasePage):
         volume_bar = (WebDriverWait(self._driver, 10).until
                       (EC.visibility_of_element_located(self._video_player_volume_bar)))
         action = ActionChains(self._driver)
-        volume_bar_width = volume_bar.size['width']
-        offset_x = (volume_bar_width * desired_volume_percentage) / 100
+        volume_level_width = volume_bar.find_element(By.CLASS_NAME, "vjs-volume-level").size['width']
+        offset_x = (volume_level_width * desired_volume_percentage) / 100
         action.click_and_hold(volume_bar).move_by_offset(offset_x, 0).release().perform()
 
     def lower_the_volume(self, desired_volume_percentage):
         volume_bar = (WebDriverWait(self._driver, 10).until
                       (EC.visibility_of_element_located(self._video_player_volume_bar)))
+        volume_bar_width = self._driver.execute_script("return arguments[0].offsetWidth;", volume_bar)
+        current_volume_percentage = int(volume_bar.get_attribute("aria-valuenow"))
+        current_offset_x = (volume_bar_width * current_volume_percentage) / 100
+        target_offset_x = (volume_bar_width * desired_volume_percentage) / 100
+        move_offset_x = target_offset_x - current_offset_x
         action = ActionChains(self._driver)
-        # Calculate the width of the volume bar
-        volume_bar_width = volume_bar.size['width']
-        offset_x = (volume_bar_width * desired_volume_percentage) / 100
-        action.click_and_hold(volume_bar).move_by_offset(-volume_bar_width + offset_x, 0).release().perform()
+        action.click_and_hold(volume_bar).move_by_offset(move_offset_x, 0).release().perform()
+        return int(volume_bar.get_attribute("aria-valuenow"))
 
     def click_full_screen_button(self):
         full_screen_button = (WebDriverWait(self._driver, 10).until
                               (EC.visibility_of_element_located(self._full_screen_button_locator)))
         full_screen_button.click()
+
+    def check_state_in_video_is_playing(self, state):
+        video_player = (WebDriverWait(self._driver, 10).until
+                        (EC.presence_of_element_located(self._video_player_locator)))
+        if state == "fullscreen":
+            return "vjs-fullscreen" in video_player.get_attribute("class")
+        elif state == "videostarted":
+            return "vjs-has-started" in video_player.get_attribute("class")
+        elif state == "playing":
+            return "vjs-playing" in video_player.get_attribute("class")
+        elif state == "paused":
+            return "vjs-paused" in video_player.get_attribute("class")

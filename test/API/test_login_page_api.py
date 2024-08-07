@@ -4,6 +4,7 @@ from infra.API.api_wrapper import APIWrapper
 from infra.json_file_handler import JsonFileHandler
 from infra.utilities import Utilities
 from logic.API.API_login_page import APILoginPage
+from logic.utilities_logic import UtilitiesLogic
 
 
 class TestLoginPageAPI(unittest.TestCase):
@@ -60,7 +61,7 @@ class TestLoginPageAPI(unittest.TestCase):
 
         # Initialize API page and arrange the username and password
         login_api = APILoginPage(self._request)
-        username = self._config.get("username")
+        username = Utilities().generate_username(15)
         password = self._config.get("password")
 
         # Send the API call
@@ -69,6 +70,6 @@ class TestLoginPageAPI(unittest.TestCase):
         # Assert the response
         self.assertEqual(200, response.status_code)
         self.assertTrue(response.ok)
-        self.assertEqual(self._config["login_username_error_message"], login_api.get_response_json(response)["errorMessage"])
+        self.assertEqual(self._config["login_user_error_message"], UtilitiesLogic().get_response_json(response)["errorMessage"])
 
 
