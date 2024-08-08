@@ -26,3 +26,4 @@ class BrowserWrapper:
         self._driver.get(url)
         self._driver.maximize_window()
         return self._driver
+

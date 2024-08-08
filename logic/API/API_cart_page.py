@@ -1,8 +1,5 @@
 import os
-
-import requests
 from selenium.webdriver.chrome.webdriver import WebDriver
-
 from infra.API.api_wrapper import APIWrapper
 from infra.json_file_handler import JsonFileHandler
 from logic.utilities_logic import UtilitiesLogic

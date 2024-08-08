@@ -1,6 +1,5 @@
 import os
 import unittest
-
 from infra.UI.browser_wrapper import BrowserWrapper
 from infra.json_file_handler import JsonFileHandler
 from logic.UI.home_page import HomePage
@@ -25,7 +24,7 @@ class TestProductPageUI(unittest.TestCase):
         home_page = HomePage(self._driver)
 
         # Click on the product by its name and add to cart
-        home_page.click_on_product_by_name(self._config["add_product_by_name"])
+        home_page.click_on_product_by_name(home_page.get_random_product_title())
         product_page = ProductPage(self._driver)
         product_page.click_add_to_cart_button()
 

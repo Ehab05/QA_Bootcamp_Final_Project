@@ -1,6 +1,5 @@
 import os
 import unittest
-
 from infra.UI.browser_wrapper import BrowserWrapper
 from infra.json_file_handler import JsonFileHandler
 from infra.utilities import Utilities
@@ -27,12 +26,27 @@ class TestContactPageUI(unittest.TestCase):
         contact_page = ContactPage(self._driver)
 
         # Perform the send contact message flow
-        contact_page.insert_contact_email(Utilities().generate_random_email(self._config["email_hot"]))
+        contact_page.insert_contact_email(Utilities().generate_random_email(self._config["email_host"]))
         contact_page.insert_contact_name(Utilities().generate_username(8))
-        contact_page.insert_contact_message(Utilities().generate_paragraph())
+        contact_page.insert_contact_message(Utilities().generate_paragraph(1,20))
         contact_page.click_send_message()
 
         # Assert the alert message after sending
         self.assertEqual(self._config["contact_message_success"], contact_page.get_alert_text(self._driver))
 
+    def test_send_empty_contact_message(self):
+        """
+            Test Case 023: Validate that an appropriate error alert message is displayed when attempting to send a
+            contact message with empty fields.
+        """
+        # Pre-conditions
+        home_page = HomePage(self._driver)
+
+        # Navigate to the contact page and send empty message
+        home_page.click_contact_button()
+        contact_page = ContactPage(self._driver)
+        contact_page.click_send_message()
+
+        # Assert the alert message
+        self.assertFalse(self._config["contact_message_success"], contact_page.get_alert_text(self._driver))
 

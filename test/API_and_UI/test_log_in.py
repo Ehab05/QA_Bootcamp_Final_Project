@@ -1,13 +1,8 @@
-import time
 import unittest
-
 from infra.API.api_wrapper import APIWrapper
 from infra.UI.browser_wrapper import BrowserWrapper
 from logic.API.API_login_page import APILoginPage
 from logic.UI.home_page import HomePage
-
-
-
 
 
 class TestLoginPage(unittest.TestCase):
@@ -16,7 +11,7 @@ class TestLoginPage(unittest.TestCase):
         self._driver = BrowserWrapper().get_driver()
 
     def tearDown(self):
-        pass
+        self._driver.quit()
 
     def test_login_api(self):
         """
@@ -37,4 +32,3 @@ class TestLoginPage(unittest.TestCase):
 
         # Assert the welcome message via the UI
         self.assertEqual(home_page.get_login_success_message(), home_page.get_name_of_user())
-

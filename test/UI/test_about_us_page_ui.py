@@ -1,7 +1,5 @@
 import os
-import time
 import unittest
-
 from infra.UI.browser_wrapper import BrowserWrapper
 from infra.json_file_handler import JsonFileHandler
 from logic.UI.about_us_page import AboutUsPage

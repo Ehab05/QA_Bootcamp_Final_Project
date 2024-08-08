@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-
 from logic.UI.app_base_page import AppBasePage
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -26,3 +25,5 @@ class ProductPage(AppBasePage):
         add_to_cart_button = (WebDriverWait(self._driver, 10).until
                               (EC.visibility_of_element_located(self._add_to_cart_locator)))
         add_to_cart_button.click()
+
+

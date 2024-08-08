@@ -1,9 +1,7 @@
 import os
-
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
 from infra.json_file_handler import JsonFileHandler
 from logic.UI.app_base_page import AppBasePage
 
@@ -67,5 +65,10 @@ class LoginPage(AppBasePage):
 
     def get_invalid_password_message(self):
         return self._config["login_password_error_message"]
+
+    def login_flow(self):
+        self.insert_username(self._config["username"])
+        self.insert_password(self._config["password"])
+        self.click_login_button()
 
 

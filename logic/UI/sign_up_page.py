@@ -1,9 +1,7 @@
 import os
-
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
 from infra.json_file_handler import JsonFileHandler
 from logic.UI.app_base_page import AppBasePage
 

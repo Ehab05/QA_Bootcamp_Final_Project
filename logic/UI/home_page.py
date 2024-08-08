@@ -1,10 +1,11 @@
 import os
-
+import random
+import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from infra.json_file_handler import JsonFileHandler
+from infra.utilities import Utilities
 from logic.UI.app_base_page import AppBasePage
 
 
@@ -17,7 +18,7 @@ class HomePage(AppBasePage):
     CAROUSEL_NEXT_BUTTON = "//a[@class='carousel-control-next']"
     CAROUSEL_PREV_BUTTON = "//a[@class='carousel-control-prev']"
     STORE_PRODUCT = "//a[contains(text() ,f"'{product_name}'")]"
-    PRODUCT_LIST = "//div[@id='tbodyid']"
+    PRODUCT_LIST = "//div[@id='tbodyid']/div[@class='col-lg-4 col-md-6 mb-4']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -56,9 +57,7 @@ class HomePage(AppBasePage):
         previous_button.click()
 
     def click_next_button(self):
-        next_button = (WebDriverWait(self._driver, 10).until
-                       (EC.visibility_of_element_located(self._next_button_locator)))
-        next_button.click()
+        Utilities().retry_waiting_for_element_to_click(3, self._driver, self.NEXT_BUTTON)
 
     def click_carousel_next_button(self):
         next_button = (WebDriverWait(self._driver, 5).until
@@ -71,12 +70,11 @@ class HomePage(AppBasePage):
         prev_button.click()
 
     def click_on_product_by_name(self, product_name):
-        product_path = f"//a[contains(text() ,'{product_name}')]"
-        product = (WebDriverWait(self._driver, 10).until
-                   (EC.visibility_of_element_located((By.XPATH, product_path))))
-        product.click()
+        product_path = f"//a[contains(text(), '{product_name}')]"
+        Utilities().retry_waiting_for_element_to_click(3, self._driver, product_path)
 
-    def get_product_list(self):
+    def get_product_list_from_home_page(self):
+        time.sleep(1)
         products_list = (WebDriverWait(self._driver, 10).until
                          (EC.visibility_of_all_elements_located(self._products_list_locator)))
         for product in products_list:
@@ -93,9 +91,17 @@ class HomePage(AppBasePage):
                 'description': description
             })
 
-    def click_on_product_by_title(self, product_title):
-        self.get_product_list()
-
     def get_login_success_message(self):
         success_message = "Welcome " + self._config["username"]
         return success_message
+
+    def get_product_list(self):
+        return self._products_list_data
+
+    def get_random_product_title(self):
+        # Extract titles from the product list
+        self.get_product_list_from_home_page()
+        titles = list(map(lambda product: product['title'], self.get_product_list()))
+
+        # Return a random title from the list
+        return random.choice(titles)

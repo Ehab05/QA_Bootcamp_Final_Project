@@ -1,11 +1,8 @@
 import os
-
 from selenium.common import NoAlertPresentException
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.support import expected_conditions as EC
-
 from selenium.webdriver.support.wait import WebDriverWait
-
 from infra.API.api_wrapper import APIWrapper
 from infra.custom_exception import CustomException
 from infra.json_file_handler import JsonFileHandler

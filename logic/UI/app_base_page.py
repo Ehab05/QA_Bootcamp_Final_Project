@@ -4,7 +4,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from infra.UI.base_page import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-
 from infra.custom_exception import CustomException
 
 
@@ -100,3 +99,7 @@ class AppBasePage(BasePage):
             return alert_text
         except NoAlertPresentException:
             raise CustomException(f"Alert presence error")
+
+    def accept_alert(self):
+        alert = WebDriverWait(self._driver, 10).until(EC.alert_is_present())
+        alert.accept()

@@ -1,4 +1,3 @@
-import json
 import os
 from infra.API.api_wrapper import APIWrapper
 from infra.custom_exception import CustomException
@@ -62,5 +61,11 @@ class APILoginPage:
         password = Utilities().encode_password_by_base64(self._config.get("password"))
         return username, password
 
+    def login_flow_through_api(self):
+        login_api = APILoginPage(self._request)
+        username, password = login_api.get_username_and_password()
+        response = login_api.login_via_api(username, password)
+        token = login_api.get_token_from_response(response)
+        return token
 
 

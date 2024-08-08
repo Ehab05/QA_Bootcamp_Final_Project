@@ -1,5 +1,4 @@
 import requests
-from http.cookiejar import Cookie
 from infra.API.response_wrapper import ResponseWrapper
 from infra.logger import Logger
 

@@ -1,5 +1,4 @@
 import unittest
-
 from infra.UI.browser_wrapper import BrowserWrapper
 from infra.utilities import Utilities
 from logic.UI.home_page import HomePage

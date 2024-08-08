@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-
 from logic.UI.app_base_page import AppBasePage
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait

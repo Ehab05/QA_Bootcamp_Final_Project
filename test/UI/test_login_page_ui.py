@@ -1,7 +1,5 @@
 import os
-
 import unittest
-from infra.API.api_wrapper import APIWrapper
 from infra.UI.browser_wrapper import BrowserWrapper
 from infra.json_file_handler import JsonFileHandler
 from infra.utilities import Utilities

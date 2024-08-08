@@ -1,7 +1,7 @@
 import json
 import os
-
 from infra.json_file_handler import JsonFileHandler
+
 
 
 class UtilitiesLogic:
@@ -20,3 +20,5 @@ class UtilitiesLogic:
     def get_response_json(self, response):
         # Convert the JSON string to a Python dictionary
         return json.loads(response.text)
+
+

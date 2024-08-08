@@ -1,6 +1,5 @@
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-
 from infra.UI.base_page import BasePage
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -98,13 +97,20 @@ class AboutUsPage(BasePage):
         full_screen_button.click()
 
     def check_state_in_video_is_playing(self, state):
-        video_player = (WebDriverWait(self._driver, 10).until
-                        (EC.presence_of_element_located(self._video_player_locator)))
-        if state == "fullscreen":
-            return "vjs-fullscreen" in video_player.get_attribute("class")
-        elif state == "videostarted":
-            return "vjs-has-started" in video_player.get_attribute("class")
-        elif state == "playing":
-            return "vjs-playing" in video_player.get_attribute("class")
-        elif state == "paused":
-            return "vjs-paused" in video_player.get_attribute("class")
+        video_player = WebDriverWait(self._driver, 10).until(
+            EC.presence_of_element_located(self._video_player_locator)
+        )
+
+        state_to_class = {
+            "fullscreen": "vjs-fullscreen",
+            "videostarted": "vjs-has-started",
+            "playing": "vjs-playing",
+            "paused": "vjs-paused"
+        }
+
+        expected_class = state_to_class.get(state)
+
+        if expected_class:
+            return expected_class in video_player.get_attribute("class")
+        else:
+            raise ValueError(f"Invalid state: {state}")

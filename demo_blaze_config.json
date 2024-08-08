@@ -1,5 +1,5 @@
 {
-    "browser": "Chrome",
+    "browser": "Edge",
     "url": "https://www.demoblaze.com/",
     "api_base_url": "https://api.demoblaze.com/",
     "username": "sDtLLfIo",
@@ -8,16 +8,12 @@
     "missing_fields_message": "Please fill out Username and Password.",
     "login_password_error_message": "Wrong password.",
     "login_user_error_message": "User does not exist.",
-    "vp_fullscreen": "fullscreen",
-    "vp_video_is_playing": "playing",
-    "vp_video_is_paused": "paused",
-    "video_started": "videostarted",
-    "email_hot": "Gmail.com",
+    "email_host": "Gmail.com",
     "contact_message_success": "Thanks for the message!!",
     "unregistered_user_cart_list": [],
     "registered_user_cart_list": [],
     "add_to_cart_success_message": "Product added",
-    "add_product_by_name": "Samsung galaxy s6",
-    "purchase_product": "Sony vaio i7",
-    "credit_card_type": "visa"
+    "credit_card_type": "visa",
+    "purchase_success_message": "Thank you for your purchase!",
+
 }
