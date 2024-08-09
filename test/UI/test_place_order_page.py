@@ -1,8 +1,12 @@
 import os
 import unittest
+
+import pytest
+
 from infra.UI.browser_wrapper import BrowserWrapper
 from infra.json_file_handler import JsonFileHandler
 from infra.utilities import Utilities
+from logic.utilities_logic import UtilitiesLogic
 from logic.UI.cart_page import CartPage
 from logic.UI.home_page import HomePage
 from logic.UI.login_page import LoginPage
@@ -20,18 +24,18 @@ class TestPlaceOrderPageUI(unittest.TestCase):
 
     def tearDown(self):
         self._driver.quit()
-
+    @pytest.mark.t1
     def test_purchase_product_by_name_with_unregistered_user(self):
         """
              Test Case 020:  Verify Success Message Displayed Upon Purchasing a Product by Name with a Unregistered User.
         """
 
         # Pre-conditions
-        credit_card = Utilities().generate_random_credit_card(self._config["credit_card_type"])
+        credit_card = UtilitiesLogic().generate_random_credit_card(self._config["credit_card_type"])
         home_page = HomePage(self._driver)
 
         # Navigate to the product page and perform the purchase process
-        home_page.click_on_product_by_name(self._config["purchase_product"])
+        home_page.click_on_product_by_name(home_page.get_random_product_title())
         product_page = ProductPage(self._driver)
         product_page.click_add_to_cart_button()
         product_page.accept_alert()
@@ -51,13 +55,14 @@ class TestPlaceOrderPageUI(unittest.TestCase):
         # Assert successful purchase message
         self.assertEqual(self._config["purchase_success_message"], success_purchase_page.get_purchase_success_message())
 
+    @pytest.mark.t1
     def test_purchase_product_by_name_with_registered_user(self):
         """
              Test Case 021:   Verify Success Message Displayed Upon Purchasing a Product by Name with a Registered User.
         """
 
         # Pre-conditions
-        credit_card = Utilities().generate_random_credit_card(self._config["credit_card_type"])
+        credit_card = UtilitiesLogic().generate_random_credit_card(self._config["credit_card_type"])
         home_page = HomePage(self._driver)
         home_page.click_login_button()
         login_page = LoginPage(self._driver)
@@ -65,7 +70,7 @@ class TestPlaceOrderPageUI(unittest.TestCase):
         home_page = HomePage(self._driver)
 
         # Navigate to the product page and perform the purchase process
-        home_page.click_on_product_by_name(self._config["purchase_product"])
+        home_page.click_on_product_by_name(home_page.get_random_product_title())
         product_page = ProductPage(self._driver)
         product_page.click_add_to_cart_button()
         product_page.accept_alert()

@@ -2,7 +2,6 @@ import os
 import unittest
 from infra.API.api_wrapper import APIWrapper
 from infra.UI.browser_wrapper import BrowserWrapper
-from infra.custom_exception import CustomException
 from infra.json_file_handler import JsonFileHandler
 from infra.utilities import Utilities
 from logic.API.API_login_page import APILoginPage
@@ -11,6 +10,7 @@ from logic.UI.home_page import HomePage
 from logic.UI.place_order_page import PlaceOrderPage
 from logic.UI.product_page import ProductPage
 from logic.UI.success_purchase_page import SuccessPurchasePage
+from logic.utilities_logic import UtilitiesLogic
 
 
 class TestPurchaseProcess(unittest.TestCase):
@@ -23,7 +23,7 @@ class TestPurchaseProcess(unittest.TestCase):
 
     def test_purchase_2_products_with_registered_user(self):
         # Pre-conditions
-        credit_card = Utilities().generate_random_credit_card(self._config["credit_card_type"])
+        credit_card = UtilitiesLogic().generate_random_credit_card(self._config["credit_card_type"])
         login_api = APILoginPage(self._request)
         token = login_api.login_flow_through_api()
         home_page = HomePage(self._driver)

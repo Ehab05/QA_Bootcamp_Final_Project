@@ -2,6 +2,7 @@ import unittest
 from infra.API.api_wrapper import APIWrapper
 from infra.utilities import Utilities
 from logic.API.API_sign_up_page import APISignUpPage
+import pytest
 
 
 class TestSignUpPageAPI(unittest.TestCase):

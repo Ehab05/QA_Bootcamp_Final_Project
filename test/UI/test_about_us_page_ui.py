@@ -32,7 +32,7 @@ class TestAboutUsPageUI(unittest.TestCase):
         about_us_page.click_full_screen_button()
 
         # Assert the video state if playing or paused and the screen mode if it is in fullscreen mode
-        self.assertTrue(about_us_page.check_state_in_video_is_playing(self._config["vp_video_is_paused"]))
-        self.assertTrue(about_us_page.check_state_in_video_is_playing(self._config["vp_fullscreen"]))
+        self.assertTrue(about_us_page.check_state_in_video_is_playing(self._config["paused"]))
+        self.assertTrue(about_us_page.check_state_in_video_is_playing(self._config["fullscreen"]))
 
 

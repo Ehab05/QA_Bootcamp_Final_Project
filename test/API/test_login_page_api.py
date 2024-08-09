@@ -1,5 +1,8 @@
 import os
 import unittest
+
+import pytest
+
 from infra.API.api_wrapper import APIWrapper
 from infra.json_file_handler import JsonFileHandler
 from infra.utilities import Utilities
@@ -51,7 +54,8 @@ class TestLoginPageAPI(unittest.TestCase):
         # Assert the response
         self.assertEqual(200, response.status_code)
         self.assertTrue(response.ok)
-        self.assertTrue(self._config["login_password_error_message"] == login_api.get_response_json(response)["errorMessage"])
+        self.assertTrue(self._config["login_password_error_message"] == UtilitiesLogic().get_response_json(response)[
+            "errorMessage"])
 
     def test_login_with_no_registered_user(self):
         """
@@ -70,6 +74,5 @@ class TestLoginPageAPI(unittest.TestCase):
         # Assert the response
         self.assertEqual(200, response.status_code)
         self.assertTrue(response.ok)
-        self.assertEqual(self._config["login_user_error_message"], UtilitiesLogic().get_response_json(response)["errorMessage"])
-
-
+        self.assertEqual(self._config["login_user_error_message"],
+                         UtilitiesLogic().get_response_json(response)["errorMessage"])

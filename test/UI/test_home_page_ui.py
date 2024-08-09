@@ -27,7 +27,6 @@ class TestHomePageUI(unittest.TestCase):
         login_page.insert_password(self._config["password"])
         login_page.click_login_button()
         home_page = HomePage(self._driver)
-        home_page.reload_page()
 
         # Performing the logout
         home_page.click_logout_button()
