@@ -1,3 +1,5 @@
+import os
+
 from selenium import webdriver
 from infra.custom_exception import CustomException
 from infra.json_file_handler import JsonFileHandler
@@ -7,7 +9,9 @@ class BrowserWrapper:
 
     def __init__(self):
         self._driver = None
-        self._config = JsonFileHandler.load_from_file('../../demo_blaze_config.json')
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        self._config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
+        self._config = JsonFileHandler().load_from_file(self._config_file_path)
 
     def get_driver(self):
         url = self._config.get("url")

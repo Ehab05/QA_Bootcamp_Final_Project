@@ -1,3 +1,5 @@
+import time
+
 from selenium.common import NoAlertPresentException
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.support import expected_conditions as EC

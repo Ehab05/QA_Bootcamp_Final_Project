@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+from infra.logger import Logger
 from logic.UI.app_base_page import AppBasePage
 
 
@@ -31,6 +33,7 @@ class PlaceOrderPage(AppBasePage):
         self._x_button_locator = (By.XPATH, self.X_BUTTON)
         self._close_button_locator = (By.XPATH, self.CLOSE_BUTTON)
         self._purchase_button_locator = (By.XPATH, self.PURCHASE_BUTTON)
+        self._logger = Logger().get_logger()
 
     def get_page_title(self):
         page_title = (WebDriverWait(self._driver, 5).until
@@ -47,18 +50,21 @@ class PlaceOrderPage(AppBasePage):
                       (EC.visibility_of_element_located(self._name_input_locator)))
         name_input.clear()
         name_input.send_keys(name)
+        self._logger.info(f"Place order name: {name}")
 
     def insert_country_input(self, country):
         country_input = (WebDriverWait(self._driver, 5).until
                          (EC.visibility_of_element_located(self._country_input_locator)))
         country_input.clear()
         country_input.send_keys(country)
+        self._logger.info(f"Place order country: {country}")
 
     def insert_city_input(self, city):
         city_input = (WebDriverWait(self._driver, 5).until
                       (EC.visibility_of_element_located(self._city_input_locator)))
         city_input.clear()
         city_input.send_keys(city)
+        self._logger.info(f"Place order city: {city}")
 
     def insert_card_number_input(self, card):
         card_input = (WebDriverWait(self._driver, 5).until

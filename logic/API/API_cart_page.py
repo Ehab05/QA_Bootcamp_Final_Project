@@ -1,7 +1,10 @@
 import os
+import time
+
 from selenium.webdriver.chrome.webdriver import WebDriver
 from infra.API.api_wrapper import APIWrapper
 from infra.json_file_handler import JsonFileHandler
+from infra.utilities import Utilities
 from logic.utilities_logic import UtilitiesLogic
 
 
@@ -22,7 +25,7 @@ class APICartPage:
 
     def view_cart_with_unregistered_user_via_api(self, driver: WebDriver):
 
-        cookies = driver.get_cookies()
+        cookies = Utilities().wait_for_action(driver.get_cookies, 1, 3)
         # Use filter to find the 'user' cookie
         user_cookie = list(filter(lambda c: c['name'] == 'user', cookies))
         cookie_value = user_cookie[0]['value']

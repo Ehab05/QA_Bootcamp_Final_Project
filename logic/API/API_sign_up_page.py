@@ -18,12 +18,12 @@ class APISignUpPage:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         self._config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
         self._config = JsonFileHandler().load_from_file(self._config_file_path)
-        self._logger = Logger('demo_blaze.log').get_logger()
+        self._logger = Logger().get_logger()
 
     def sign_up(self, username, password):
         try:
-            password = Utilities().encode_password_by_base64(password)
-            sign_up_body = {"username": username, "password": password}
+            encoded_password = Utilities().encode_password_by_base64(password)
+            sign_up_body = {"username": username, "password": encoded_password}
             response = self._request.post_request(self._url, sign_up_body)
             self._config["username"] = username
             self._config["password"] = password

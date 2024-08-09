@@ -1,9 +1,11 @@
 {
-    "browser": "Edge",
+    "browser": "Chrome",
+    "jira_url": "https://ehab05.atlassian.net",
+    "jira_email": "ehabkalil5@gmail.com",
     "url": "https://www.demoblaze.com/",
     "api_base_url": "https://api.demoblaze.com/",
-    "username": "sDtLLfIo",
-    "password": "mO9shLOK",
+    "username": "OPHLzWXc",
+    "password": "zYEvjpIp",
     "signup_success_message": "Sign up successful.",
     "missing_fields_message": "Please fill out Username and Password.",
     "login_password_error_message": "Wrong password.",
@@ -15,5 +17,10 @@
     "add_to_cart_success_message": "Product added",
     "credit_card_type": "visa",
     "purchase_success_message": "Thank you for your purchase!",
-
+    "contact_message_error": "Please fill out the missing fields",
+    "jira_project_key": "TRQY",
+    "fullscreen": "fullscreen",
+    "videostarted": "videostarted",
+    "playing": "playing",
+    "paused": "paused"
 }

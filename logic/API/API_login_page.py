@@ -14,7 +14,7 @@ class APILoginPage:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
         self._config = JsonFileHandler().load_from_file(config_file_path)
-        self._logger = Logger('demo_blaze.log').get_logger()
+        self._logger = Logger().get_logger()
 
     def login_via_api(self, username, password):
         try:
@@ -62,10 +62,13 @@ class APILoginPage:
         return username, password
 
     def login_flow_through_api(self):
-        login_api = APILoginPage(self._request)
-        username, password = login_api.get_username_and_password()
-        response = login_api.login_via_api(username, password)
-        token = login_api.get_token_from_response(response)
+        try:
+            login_api = APILoginPage(self._request)
+            username, password = login_api.get_username_and_password()
+            response = login_api.login_via_api(username, password)
+            token = login_api.get_token_from_response(response)
+        except Exception as e:
+            raise CustomException(f"Failed to login through API: {e}")
         return token
 
 

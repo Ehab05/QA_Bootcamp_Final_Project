@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from infra.json_file_handler import JsonFileHandler
+from infra.logger import Logger
 from infra.utilities import Utilities
 from logic.UI.app_base_page import AppBasePage
 
@@ -35,6 +36,7 @@ class HomePage(AppBasePage):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         self._config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
         self._config = JsonFileHandler().load_from_file(self._config_file_path)
+        self._logger = Logger().get_logger()
 
     def click_phones_button(self):
         phones_button = (WebDriverWait(self._driver, 10).until
@@ -102,6 +104,8 @@ class HomePage(AppBasePage):
         # Extract titles from the product list
         self.get_product_list_from_home_page()
         titles = list(map(lambda product: product['title'], self.get_product_list()))
+        title = random.choice(titles)
+        self._logger.info(f"This is the product title that was generated: {title}")
 
         # Return a random title from the list
-        return random.choice(titles)
+        return title

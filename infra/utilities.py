@@ -9,11 +9,12 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from infra.custom_exception import CustomException
+from infra.logger import Logger
 
 
 class Utilities:
     def __init__(self):
-        pass
+        self._logger = Logger().get_logger()
 
     def generate_username(self, username_length: int) -> str:
         """
@@ -24,20 +25,7 @@ class Utilities:
         letters = string.ascii_letters
         return "".join(random.choice(letters) for _ in range(username_length))
 
-    def generate_random_credit_card(self, card_type) -> dict:
-        # initialize card
-        credit_card = {"card_number": "", "card_expiry": "", "card_provider": "", "card_security_code": ""}
 
-        # Create a Faker instance
-        fake = Faker()
-
-        # Generate fake credit card information
-        credit_card["card_number"] = fake.credit_card_number(card_type=f"{card_type}")
-        credit_card["card_expiry"] = fake.credit_card_expire(start="now", end="+10y", date_format="%m/%y")
-        credit_card["card_provider"] = fake.credit_card_provider(card_type=f"{card_type}")
-        credit_card["card_security_code"] = fake.credit_card_security_code(card_type=f"{card_type}")
-
-        return credit_card
 
     def generate_random_email(self, email_host) -> str:
         """
@@ -142,3 +130,25 @@ class Utilities:
                 retries -= 1
                 if retries == 0:
                     raise CustomException(f"Failed to find the element")
+
+    @staticmethod
+    def wait_for_action(action, sleep_time, retries):
+        """
+        This function effectively waits for an action to succeed, retrying every `sleep_time` seconds for `retries` times.
+
+        :param action: A callable that performs the desired action and returns a result.
+        :param sleep_time: Time in seconds to wait between retries.
+        :param retries: Number of times to retry the action if it fails.
+        :return: The result of the action if successful, otherwise False.
+        """
+        result = None
+        while retries > 0:
+            try:
+                result = action()
+                if result:
+                    return result
+            except Exception as e:
+                print(f"Action failed with exception: {e}. Retrying...")
+            time.sleep(sleep_time)
+            retries -= 1
+        return False
