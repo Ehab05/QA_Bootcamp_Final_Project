@@ -26,6 +26,7 @@ Before running the tests, ensure you have the following packages installed:
 pip install selenium faker jira requests allure-pytest pytest
 pytest --alluredir=allure-results
 allure serve allure-results
+```
 
 ### Installation Steps
 
@@ -41,6 +42,7 @@ To run all tests using Pytest and generate reports:
 
 ```bash
 pytest --alluredir=allure-results
+```
 
 For specific tests using pytest.mark:
 
@@ -79,3 +81,10 @@ pytest --html=report.html
 
 The project uses a JSON configuration file to manage settings and a Logger to track and record 
 information and errors during execution. Logs are stored in the logs/ directory for easy access and review.
+
+## Contributors
+This project was developed and is maintained by Ehab Khalil
+
+## Contact
+For more details on contributing, known issues, or other inquiries, feel free to reach out or explore the project documentation.
+🔗 Ehabkhalil5@gmail.com
