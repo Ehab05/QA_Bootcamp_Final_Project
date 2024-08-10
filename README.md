@@ -8,7 +8,7 @@ Welcome to the **Demo Blaze Web Application Test Project**! This project showcas
 - **Automated Testing:** Utilized Python and Selenium WebDriver to automate a wide range of test cases, ensuring consistency and efficiency.
 - **Test Execution:** Integrated Pytest for streamlined test execution, with options to run tests via terminal commands or manually in PyCharm.
 - **Comprehensive Reporting:** Implemented Allure and HTML reporting for detailed insights into test results and execution metrics.
-- **Advanced Marking:** Employed `pytest.mark` for selective test runs, providing flexibility in test management.
+
 
 ## Installation
 
@@ -26,3 +26,40 @@ Before running the tests, ensure you have the following packages installed:
 pip install selenium faker jira requests allure-pytest pytest
 pytest --alluredir=allure-results
 allure serve allure-results
+
+### Installation Steps
+
+1. Clone this repository to your local machine. https://github.com/Ehab05/QA_Bootcamp_Final_Project.git
+2. Navigate to the project directory.
+3. Install the required packages using the command above.
+
+## Usage
+
+### Running Tests via Pytest
+
+To run all tests using Pytest and generate reports:
+
+```bash
+pytest --alluredir=allure-results
+
+For specific tests using pytest.mark:
+
+```bash
+pytest -m "marker_name" --alluredir=allure-results
+
+To generate an HTML report:
+
+```bash
+pytest --html=report.html
+
+## Running Tests Manually in PyCharm
+1. Open the project in PyCharm.
+2. Navigate to the desired test file.
+3. Right-click on the test function and select "Run" to execute it individually.
+
+## Project Structure
+- **infra/:** Contains infrastructure-related files and settings.
+- **logic/:** Houses the core logic, organized by UI and API components.
+- **tests/:** Contains test cases, organized by API and UI, with utilities for support.
+- **demo_blaze_config/:** Stores configuration of the project.
+- **logs/:** Directory for log files generated during test execution.
