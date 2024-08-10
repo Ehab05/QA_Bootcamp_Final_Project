@@ -46,11 +46,13 @@ For specific tests using pytest.mark:
 
 ```bash
 pytest -m "marker_name" --alluredir=allure-results
+```
 
 To generate an HTML report:
 
 ```bash
 pytest --html=report.html
+```
 
 ## Running Tests Manually in PyCharm
 1. Open the project in PyCharm.
@@ -63,3 +65,17 @@ pytest --html=report.html
 - **tests/:** Contains test cases, organized by API and UI, with utilities for support.
 - **demo_blaze_config/:** Stores configuration of the project.
 - **logs/:** Directory for log files generated during test execution.
+
+## Technologies Used
+- **Python:** Core programming language.
+- **Selenium WebDriver:** Browser automation.
+- **Pytest:** Test execution framework.
+- **Allure:** Reporting tool for detailed insights.
+- **Faker:** Data generation.
+- **JIRA:** Issue tracking and management.
+- **Requests:** For API interactions.
+
+## Logging and Configuration
+
+The project uses a JSON configuration file to manage settings and a Logger to track and record 
+information and errors during execution. Logs are stored in the logs/ directory for easy access and review.
