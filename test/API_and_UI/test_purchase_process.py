@@ -50,9 +50,9 @@ class TestPurchaseProcess(unittest.TestCase):
         place_order_page.insert_name_input(Utilities().generate_username(5))
         place_order_page.insert_country_input(Utilities().generate_username(6))
         place_order_page.insert_city_input(Utilities().generate_username(7))
-        place_order_page.insert_card_number_input(["card_number"])
-        place_order_page.insert_month_input(credit_card["card_expiry"].split('/')[0])
-        place_order_page.insert_year_input(credit_card["card_expiry"].split('/')[1])
+        place_order_page.insert_card_number_input(credit_card["card_number"])
+        place_order_page.get_credit_card_month(credit_card)
+        place_order_page.get_credit_card_year(credit_card)
         place_order_page.click_purchase_button()
         success_purchase_page = SuccessPurchasePage(self._driver)
 

@@ -98,3 +98,11 @@ class PlaceOrderPage(AppBasePage):
         purchase_button = (WebDriverWait(self._driver, 5).until
                            (EC.visibility_of_element_located(self._purchase_button_locator)))
         purchase_button.click()
+
+    def get_credit_card_month(self, card_date):
+        return card_date["card_expiry"].split('/')[0]
+
+    def get_credit_card_year(self, card_date):
+        return card_date["card_expiry"].split('/')[1]
+
+
