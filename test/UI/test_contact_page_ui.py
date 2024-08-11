@@ -64,3 +64,4 @@ class TestContactPageUI(unittest.TestCase):
             self.assertEqual(self._config["contact_message_error"], contact_page.get_alert_text(self._driver))
         except AssertionError as e:
             self._error = f"The Assertion Failed : {e}"
+            raise

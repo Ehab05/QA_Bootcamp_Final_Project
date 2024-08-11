@@ -11,6 +11,9 @@ class TestHomePageUI(unittest.TestCase):
         self._driver = BrowserWrapper().get_driver()
         self._config = JsonFileHandler().load_from_file('../../demo_blaze_config.json', __file__)
 
+    def tearDown(self):
+        self._driver.quit()
+
     def test_home_page_logout(self):
         """
              Test Case 014: Verify successful logout
