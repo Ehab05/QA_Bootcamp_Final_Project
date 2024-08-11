@@ -15,9 +15,7 @@ class APISignUpPage:
     def __init__(self, request: APIWrapper):
         self._request = request
         self._url = UtilitiesLogic().get_url_with_endpoint("signup")
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        self._config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
-        self._config = JsonFileHandler().load_from_file(self._config_file_path)
+        self._config = JsonFileHandler().load_from_file('../../demo_blaze_config.json', __file__)
         self._logger = Logger().get_logger()
 
     def sign_up(self, username, password):
@@ -27,7 +25,7 @@ class APISignUpPage:
             response = self._request.post_request(self._url, sign_up_body)
             self._config["username"] = username
             self._config["password"] = password
-            JsonFileHandler().save_to_file(self._config_file_path, self._config)
+            JsonFileHandler().save_to_file('../../demo_blaze_config.json', __file__)
             return response
         except Exception as e:
             self._logger.error(f"Error signing up: {e}")

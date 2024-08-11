@@ -11,9 +11,7 @@ class APILoginPage:
     def __init__(self, request: APIWrapper):
         self._request = request
         self._url = UtilitiesLogic().get_url_with_endpoint("login")
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
-        self._config = JsonFileHandler().load_from_file(config_file_path)
+        self._config = JsonFileHandler().load_from_file('../../demo_blaze_config.json', __file__)
         self._logger = Logger().get_logger()
 
     def login_via_api(self, username, password):

@@ -1,4 +1,7 @@
 import unittest
+
+import pytest
+
 from infra.UI.browser_wrapper import BrowserWrapper
 from infra.utilities import Utilities
 from logic.UI.home_page import HomePage
@@ -12,6 +15,7 @@ class TestSignUpPageUI(unittest.TestCase):
     def tearDown(self):
         self._driver.quit()
 
+    @pytest.mark.t1
     def test_valid_sign_up(self):
         """
             Test Case 003: Verify successful sign up with valid username and password
@@ -65,4 +69,3 @@ class TestSignUpPageUI(unittest.TestCase):
 
         # assert the signup result
         self.assertEqual(sign_up_page.get_signup_missing_fields_message(), sign_up_page.get_alert_text(self._driver))
-

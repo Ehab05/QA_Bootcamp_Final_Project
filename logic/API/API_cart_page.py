@@ -9,9 +9,7 @@ from logic.utilities_logic import UtilitiesLogic
 class APICartPage:
     def __init__(self, request: APIWrapper):
         self._request = request
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
-        self._config = JsonFileHandler().load_from_file(config_file_path)
+        self._config = JsonFileHandler().load_from_file('../../demo_blaze_config.json', __file__)
 
     def view_cart_with_registered_user_via_api(self, token):
         url = UtilitiesLogic().get_url_with_endpoint("viewcart")

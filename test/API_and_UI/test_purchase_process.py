@@ -1,5 +1,8 @@
 import os
 import unittest
+
+import pytest
+
 from infra.API.api_wrapper import APIWrapper
 from infra.UI.browser_wrapper import BrowserWrapper
 from infra.json_file_handler import JsonFileHandler
@@ -17,27 +20,34 @@ class TestPurchaseProcess(unittest.TestCase):
     def setUp(self):
         self._request = APIWrapper()
         self._driver = BrowserWrapper().get_driver()
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        self._config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
-        self._config = JsonFileHandler().load_from_file(self._config_file_path)
+        self._config = JsonFileHandler().load_from_file('../../demo_blaze_config.json', __file__)
+        self._logout = False
+        self._home_page = HomePage(self._driver)
+        self._success_purchase_page = None
 
+    def tearDown(self):
+        self._success_purchase_page.click_ok_button()
+        self._home_page.click_logout_button()
+        self._driver.quit()
+
+    @pytest.mark.t1
     def test_purchase_2_products_with_registered_user(self):
         # Pre-conditions
         credit_card = UtilitiesLogic().generate_random_credit_card(self._config["credit_card_type"])
         login_api = APILoginPage(self._request)
         token = login_api.login_flow_through_api()
-        home_page = HomePage(self._driver)
-        home_page.add_token_to_cookie(token)
+
+        self._home_page.add_token_to_cookie(token)
         # Add first product from the first section of home page
-        home_page.click_on_product_by_name(home_page.get_random_product_title())
+        self._home_page.click_on_product_by_name(self._home_page.get_random_product_title())
         product_page = ProductPage(self._driver)
         product_page.click_add_to_cart_button()
         product_page.accept_alert()
         # Add second product from the second section of home page
         product_page.click_product_store_button()
-        home_page = HomePage(self._driver)
-        home_page.click_next_button()
-        home_page.click_on_product_by_name(home_page.get_random_product_title())
+        self._home_page.click_next_button()
+        self._home_page = HomePage(self._driver)
+        self._home_page.click_on_product_by_name(self._home_page.get_random_product_title())
         product_page = ProductPage(self._driver)
         product_page.click_add_to_cart_button()
         product_page.accept_alert()
@@ -54,7 +64,7 @@ class TestPurchaseProcess(unittest.TestCase):
         place_order_page.get_credit_card_month(credit_card)
         place_order_page.get_credit_card_year(credit_card)
         place_order_page.click_purchase_button()
-        success_purchase_page = SuccessPurchasePage(self._driver)
+        self._success_purchase_page = SuccessPurchasePage(self._driver)
 
         # Assert the purchase success message
-        self.assertEqual(self._config["purchase_success_message"], success_purchase_page.get_purchase_success_message())
+        self.assertEqual(self._config["purchase_success_message"], self._success_purchase_page.get_purchase_success_message())

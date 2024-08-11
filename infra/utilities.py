@@ -7,7 +7,6 @@ from selenium.common import StaleElementReferenceException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from infra.custom_exception import CustomException
 from infra.logger import Logger
 

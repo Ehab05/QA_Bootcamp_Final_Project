@@ -21,9 +21,7 @@ class LoginPage(AppBasePage):
         self._close_button_locator = (By.XPATH, self.CLOSE_BUTTON)
         self._log_in_button_locator = (By.XPATH, self.LOG_IN_BUTTON)
         self._x_button_locator = (By.XPATH, self.X_BUTTON)
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        self._config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
-        self._config = JsonFileHandler().load_from_file(self._config_file_path)
+        self._config = JsonFileHandler().load_from_file('../../demo_blaze_config.json', __file__)
 
     def insert_username(self, username):
         user_name_input = WebDriverWait(self._driver, 10).until(

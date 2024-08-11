@@ -18,13 +18,11 @@ from logic.UI.success_purchase_page import SuccessPurchasePage
 class TestPlaceOrderPageUI(unittest.TestCase):
     def setUp(self):
         self._driver = BrowserWrapper().get_driver()
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        self._config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
-        self._config = JsonFileHandler().load_from_file(self._config_file_path)
+        self._config = JsonFileHandler().load_from_file('../../demo_blaze_config.json', __file__)
 
     def tearDown(self):
         self._driver.quit()
-    @pytest.mark.t1
+
     def test_purchase_product_by_name_with_unregistered_user(self):
         """
              Test Case 020:  Verify Success Message Displayed Upon Purchasing a Product by Name with a Unregistered User.

@@ -1,6 +1,7 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class BasePage:
     def __init__(self, driver):
         self._driver = driver
@@ -34,4 +35,3 @@ class BasePage:
     def add_token_to_cookie(self, token):
         self._driver.add_cookie(token)
         self.reload_page()
-

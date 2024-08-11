@@ -33,9 +33,7 @@ class HomePage(AppBasePage):
         self._carousel_prev_button_locator = (By.XPATH, self.CAROUSEL_PREV_BUTTON)
         self._products_list_locator = (By.XPATH, self.PRODUCT_LIST)
         self._products_list_data = []
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        self._config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
-        self._config = JsonFileHandler().load_from_file(self._config_file_path)
+        self._config = JsonFileHandler().load_from_file('../../demo_blaze_config.json', __file__)
         self._logger = Logger().get_logger()
 
     def click_phones_button(self):

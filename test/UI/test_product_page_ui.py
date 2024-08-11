@@ -10,8 +10,8 @@ class TestProductPageUI(unittest.TestCase):
     def setUp(self):
         self._driver = BrowserWrapper().get_driver()
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        self._config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
-        self._config = JsonFileHandler().load_from_file(self._config_file_path)
+        self._config_file_path = os.path.join(base_dir, )
+        self._config = JsonFileHandler().load_from_file('../../demo_blaze_config.json', __file__)
 
     def tearDown(self):
         self._driver.quit()

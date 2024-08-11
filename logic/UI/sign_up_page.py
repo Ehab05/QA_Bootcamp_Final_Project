@@ -16,9 +16,7 @@ class SignUpPage(AppBasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self._driver = driver
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        self._config_file_path = os.path.join(base_dir, '../../demo_blaze_config.json')
-        self._config = JsonFileHandler().load_from_file(self._config_file_path)
+        self._config = JsonFileHandler().load_from_file('../../demo_blaze_config.json', __file__)
         self._user_name_input_locator = (By.XPATH, self.USER_NAME_INPUT)
         self._password_input_locator = (By.XPATH, self.PASSWORD_INPUT)
         self._close_button_locator = (By.XPATH, self.CLOSE_BUTTON)
@@ -30,7 +28,7 @@ class SignUpPage(AppBasePage):
             EC.visibility_of_element_located(self._user_name_input_locator))
         user_name_input.send_keys(username)
         self._config["username"] = username
-        JsonFileHandler().save_to_file(self._config_file_path, self._config)
+        JsonFileHandler().save_to_file('../../demo_blaze_config.json', __file__)
 
     def clear_username_input_field(self):
         user_name_input = WebDriverWait(self._driver, 10).until(
@@ -42,7 +40,7 @@ class SignUpPage(AppBasePage):
             EC.visibility_of_element_located(self._password_input_locator))
         password_input.send_keys(password)
         self._config["password"] = password
-        JsonFileHandler().save_to_file(self._config_file_path, self._config)
+        JsonFileHandler().save_to_file('../../demo_blaze_config.json', __file__)
 
     def clear_password_input_field(self):
         password_input = WebDriverWait(self._driver, 10).until(
