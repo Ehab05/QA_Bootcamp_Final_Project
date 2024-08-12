@@ -15,6 +15,11 @@ class JsonFileHandler:
             print(f"File not found.")
 
     @staticmethod
-    def save_to_file(filename, data):
-        with open(filename, 'w') as filename:
-            json.dump(data, filename, indent=4)
+    def save_to_file(filename, data, current_file_path):
+        try:
+            base_dir = os.path.dirname(os.path.abspath(current_file_path))
+            config_file_path = os.path.join(base_dir, filename)
+            with open(config_file_path, 'w') as filename:
+                json.dump(data, filename, indent=4)
+        except FileNotFoundError:
+            print(f"File not found.")

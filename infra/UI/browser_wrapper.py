@@ -1,5 +1,3 @@
-import os
-
 from selenium import webdriver
 from infra.custom_exception import CustomException
 from infra.json_file_handler import JsonFileHandler

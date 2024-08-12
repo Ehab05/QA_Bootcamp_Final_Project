@@ -25,7 +25,7 @@ class APISignUpPage:
             response = self._request.post_request(self._url, sign_up_body)
             self._config["username"] = username
             self._config["password"] = password
-            JsonFileHandler().save_to_file('../../demo_blaze_config.json', __file__)
+            JsonFileHandler().save_to_file('../../demo_blaze_config.json',self._config, __file__)
             return response
         except Exception as e:
             self._logger.error(f"Error signing up: {e}")

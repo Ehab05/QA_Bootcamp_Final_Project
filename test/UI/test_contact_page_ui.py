@@ -1,4 +1,4 @@
-import os
+
 import unittest
 from infra.UI.browser_wrapper import BrowserWrapper
 from infra.jira_handler import JiraHandler

@@ -9,9 +9,6 @@ class TestSignUpPageAPI(unittest.TestCase):
     def setUp(self):
         self._request = APIWrapper()
 
-    def tearDown(self):
-        pass
-
     def test_valid_sign_up(self):
         """
             Test Case 001: Verify successful sign up with valid username and password
